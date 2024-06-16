@@ -1,0 +1,31 @@
+[package]
+name = "taiko-stat"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+alloy = { git = "https://github.com/alloy-rs/alloy", rev = "fb875f2", features = [
+    "contract",
+    "network",
+    "providers",
+    "rpc",
+    "rpc-types",
+    "rpc-types-eth",
+    "transports",
+    "provider-http",
+    "provider-ws",
+    "rpc-client",
+    "pubsub",
+    "rpc",
+    "node-bindings",
+    "transport-ws",
+    "reqwest",
+    "serde",
+    "getrandom",
+] }
+clap = { version = "4.5.7", features = ["derive"] }
+eyre = "0.6.12"
+log = "0.4.21"
+pretty_env_logger = "0.5.0"
+tokio = { version = "1.38.0", features = ["full"] }
+url = "2.5.1"
