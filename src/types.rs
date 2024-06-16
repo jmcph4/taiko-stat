@@ -23,7 +23,7 @@ pub const TAIKO_GENESIS_L1_BLOCK_NUMBER: BlockId = BlockId::number(19945276);
 pub const TAIKO_GENESIS_L1_TX_HASH: &str =
     "0x75caf0c3cf9a13349fccb7b8a2ee134ba6a31e309a97f335115edeb7e7c9edd5";
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct BlockInfo {
     pub l1_block: Block,
     pub l2_block: Block,
