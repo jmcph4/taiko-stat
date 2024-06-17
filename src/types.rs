@@ -10,7 +10,7 @@ use alloy::{
     },
 };
 use eyre::eyre;
-use log::debug;
+use log::{debug, trace};
 use url::Url;
 
 use crate::util::{get_block, get_transaction};
@@ -76,6 +76,8 @@ impl BlockInfo {
         let start_block =
             curr_l1_block_number - time_difference / ETH_SLOT_TIME;
 
+        trace!("Starting search at block {}...", start_block);
+
         for i in 0..L1_LOOKBACK {
             let curr_block = match provider
                 .get_block(
@@ -87,6 +89,8 @@ impl BlockInfo {
                 Some(t) => t,
                 None => return Err(eyre!("no such block")),
             };
+
+            trace!("Checking block {}...", curr_block.header.number.unwrap());
 
             // TODO(jmcph4): search current block for (successful) Taiko proposal transaction
             if let BlockTransactions::Full(ref txs) = curr_block.transactions {

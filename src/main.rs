@@ -18,12 +18,26 @@ async fn main() -> eyre::Result<()> {
 
     let ctx: CommandContext = CommandContext::new(opts.eth_rpc, opts.taiko_rpc);
 
-    match opts.command {
-        Commands::Inspect { command } => match command {
-            InspectCommands::Block { identifier } => {
-                cmd::inspect::block(ctx, identifier)
-            }
-        },
+    if opts.print_taiko_contract_address {
+        cmd::print_taiko_contract_address();
+        return Ok(());
     }
-    .await
+
+    if opts.print_taiko_genesis_l1_block_number {
+        cmd::print_taiko_genesis_l1_block_number();
+        return Ok(());
+    }
+
+    if let Some(subcommand) = opts.command {
+        match subcommand {
+            Commands::Inspect { command } => match command {
+                InspectCommands::Block { identifier } => {
+                    cmd::inspect::block(ctx, identifier)
+                }
+            },
+        }
+        .await
+    } else {
+        Ok(())
+    }
 }
